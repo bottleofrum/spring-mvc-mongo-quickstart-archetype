@@ -2,7 +2,14 @@
 	xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd">
-	<fileSets>
+	<requiredProperties>
+        <requiredProperty key="mongo-user" />
+        <requiredProperty key="mongo-password" />
+        <requiredProperty key="mongo-host" />
+        <requiredProperty key="mongo-port" />
+        <requiredProperty key="mongo-db" />
+	</requiredProperties>
+    <fileSets>
 		<fileSet filtered="true" packaged="true">
 			 <directory>src/main/java</directory>
 			 <includes>
