@@ -1,4 +1,4 @@
-package test.config;
+package ${package}.config;
 
 import com.mongodb.Mongo;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,4 +1,4 @@
-package test.account;
+package ${package}.account;
 
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.security.crypto.password.PasswordEncoder;

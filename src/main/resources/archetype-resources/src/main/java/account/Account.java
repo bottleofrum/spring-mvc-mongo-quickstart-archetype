@@ -1,4 +1,4 @@
-package test.account;
+package ${package}.account;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -7,7 +7,7 @@ public class Account implements java.io.Serializable {
 
     public static final String FIND_BY_EMAIL = "Account.findByEmail";
 
-    private Long id;
+    private String id;
 
     private String email;
 
@@ -26,7 +26,7 @@ public class Account implements java.io.Serializable {
         this.role = role;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
