@@ -74,8 +74,8 @@
         <!-- Persistence -->
         <dependency>
             <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-mongodb</artifactId>
-            <version>1.2.1.RELEASE</version>
+            <artifactId>spring-data-redis</artifactId>
+            <version>1.0.6.RELEASE</version>
         </dependency>
         <!-- javax.validation (JSR-303) -->
         <dependency>

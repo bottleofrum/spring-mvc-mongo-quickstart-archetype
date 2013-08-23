@@ -1,50 +1,46 @@
 package ${package}.config;
 
-import com.mongodb.Mongo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.authentication.UserCredentials;
-import org.springframework.data.mongodb.MongoDbFactory;
-import org.springframework.data.mongodb.core.MongoFactoryBean;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.support.atomic.RedisAtomicLong;
 
 @Configuration
 public class PersistenceConfig {
 
-    @Value("${mongo.user}")
-    private String user;
+	@Value("${redis.host}")
+	private String host;
 
-    @Value("${mongo.password}")
-    private String password;
+	@Value("${redis.port}")
+	private int port;
 
-    @Value("${mongo.host}")
-    private String host;
+	@Value("${redis.password}")
+	private String password;
 
-    @Value("${mongo.port}")
-    private int port;
-
-    @Value("${mongo.db}")
-    private String db;
+	@Value("${redis.db}")
+	private int db;
 
 
-    @Bean
-    public MongoFactoryBean mongoFactoryBean() {
-        MongoFactoryBean mongoFactoryBean = new MongoFactoryBean();
-        mongoFactoryBean.setHost(host);
-        mongoFactoryBean.setPort(port);
-        return mongoFactoryBean;
-    }
+	@Bean
+	public JedisConnectionFactory jedisConnectionFactory() {
+		JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
+		jedisConnectionFactory.setHostName(host);
+		jedisConnectionFactory.setPort(port);
+		jedisConnectionFactory.setPassword(password);
+		jedisConnectionFactory.setDatabase(db);
+		return jedisConnectionFactory;
+	}
 
-    @Bean
-    public MongoDbFactory mongoDbFactory(Mongo mongo) {
-        return new SimpleMongoDbFactory(mongo,db,new UserCredentials(user,password));
-    }
+	@Bean
+	public StringRedisTemplate redisTemplate(){
+		return new StringRedisTemplate(jedisConnectionFactory());
+	}
 
-    @Bean
-    public MongoTemplate mongoTemplate(MongoDbFactory mongoDbFactory) {
-        return new MongoTemplate(mongoDbFactory);
-    }
+	@Bean
+	public RedisAtomicLong accountIdGenerator(){
+		return new RedisAtomicLong("account:id", jedisConnectionFactory());
+	}
 
 }
